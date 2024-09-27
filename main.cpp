@@ -63,17 +63,23 @@ int main() { ///19200, 38400, 57600, 115200, 230400, 460800, 921600
 	int rc = pico_led_init();
 	hard_assert(rc == PICO_OK);
 //	auto ff = ESP.GetCmdNo(ESP8285::cmdGetOK);
-	ESP.SendCommand(Uart::cmdGetOK);
-	ESP.SendCommand(Uart::cmdGetRst);
-	ESP.SendCommand(Uart::cmdGetOK);
-	ESP.SendCommand(Uart::cmdGetUartDef);
-	ESP.SendCommand(Uart::cmdGetOK);
-	ESP.SendCommand(Uart::cmdSetFact);
-	ESP.SendCommand(Uart::cmdGetOK);
-	ESP.SendCommand(Uart::cmdGetRst);
-	ESP.SendCommand(Uart::cmdGetOK);
-	ESP.SendCommand(Uart::cmdGetBaud);
-	ESP.SendCommand(Uart::cmdGetOK);
+	ESP.SendGetCommand(Uart::cmdGetOK);
+	ESP.SendGetCommand(Uart::cmdGetRst);
+//	ESP.SendGetCommand(Uart::cmdGetOK);
+//	ESP.SendGetCommand(Uart::cmdGetUartDef);
+//	ESP.SendGetCommand(Uart::cmdGetOK);
+//	ESP.SendGetCommand(Uart::cmdSetFact);
+//	ESP.SendGetCommand(Uart::cmdGetOK);
+//	ESP.SendGetCommand(Uart::cmdGetRst);
+//	ESP.SendGetCommand(Uart::cmdGetOK);
+	ESP.SendGetCommand(Uart::cmdGetUartCur);
+	ESP.SendGetCommand(Uart::cmdGetOK);
+	ESP.SetBaud(115200);
+	//ESP.SetBaud(230400);
+	ESP.SendGetCommand(Uart::cmdGetOK);
+	
+	ESP.SendGetCommand(Uart::cmdGetUartCur);
+	ESP.SendGetCommand(Uart::cmdGetOK);
 	
 	
 	/*ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetOK));

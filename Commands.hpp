@@ -1,18 +1,21 @@
 #pragma once
 
+#include <map>
+#include <string>
 	 
 #define ANSWER_OK "\r\nOK\r\n"
+#define ANSWER_OK_LEN 6U
 #define ANSWER_ERR "\r\nERROR\r\n"
 #define ANSWER_ERR_LEN 9U
 #define ANSWER_BUSY "\r\nbusy p...\r\n"
 #define ANSWER_BUSY_LEN 13U
 #define ANSWER_READY "\r\nready\r\n"
-class Cmds
+class ATCmds
 {
 public:
-	Cmds() {}
+	ATCmds() {}
 	;
-	~Cmds() {}
+	~ATCmds() {}
 	;
 	
 	enum commands
@@ -99,6 +102,7 @@ public:
 		//	cmdGetUartDef,	"AT+UART_DEF?",
 		1000,
 		   
+		
 		//	cmdSetFact,	"AT+RST" 
 		1000000,
 		//	cmdSetModeSta, "AT+CWMODE=1" 
@@ -144,8 +148,8 @@ public:
 		"AT+CWMODE=1",
 		"AT+CWMODE=2",
 		"AT+CWMODE=3",
-		//+UART_CUR:<baudrate>,<databits>,<stopbits>,<parity>,<flow control>
-		"AT+UART_CUR=230400,8,1,0,1",
+		//+UART_CUR=<baudrate>,<databits>,<stopbits>,<parity>,<flow control>
+		"AT+UART_CUR=",
 		
 	};
 	
@@ -174,5 +178,19 @@ public:
 		return UINT32_MAX;
 	}  
 
+private:
+};
+ 
+class WFCmds
+{
+public:
+	WFCmds() {}
+	~WFCmds() {}
+	struct CommandData {
+		std::string command;
+		int timeout;
+		std::string expectedResponse;
+	};
+	
 private:
 };

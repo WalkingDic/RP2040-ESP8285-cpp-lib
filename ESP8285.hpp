@@ -11,7 +11,7 @@
 #include <cstdio> 
 
 #include "uart.hpp"
-class ESP8285 :public Uart {
+class ESP8285 :public Uart, public WFCmds {
 private:
 	// Приватные переменные и методы (доступны только внутри класса)
  
@@ -25,7 +25,8 @@ public:
 		uart_parity_t uart_parity = UART_PARITY_NONE,
 		uint uart_rx_pin = 1, 
 		uint uart_tx_pin = 0) 
-		: Uart(uart, uart_baud, uart_data_bits, uart_stop_bits, uart_parity, uart_rx_pin, uart_tx_pin) {}
+		: Uart(uart, uart_baud, uart_data_bits, uart_stop_bits, uart_parity, uart_rx_pin, uart_tx_pin)
+	{}
 	 
 	static ESP8285* instance;	 
 	void UartChangeBaud(uint baud)		
