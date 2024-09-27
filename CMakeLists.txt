@@ -12,7 +12,8 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 add_executable(blink
     main.cpp
-    ESP8285.cpp)
+    ESP8285.cpp
+    uart.cpp)
 
 # pull in common dependencies
 target_link_libraries(blink pico_stdlib hardware_uart hardware_gpio)

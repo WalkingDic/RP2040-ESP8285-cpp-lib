@@ -20,10 +20,6 @@
 
 #define LED_DELAY_MS 2000
 
-
-#define UART0_TX_PIN 0   
-#define UART0_RX_PIN 1   
-
 #define UART1_TX_PIN 4   // Пин для передачи данных (TX) для UART1
 #define UART1_RX_PIN 5   // Пин для приема данных (RX) для UART1
 #define MAX_STR_LEN 100          // Максимальная длина строки для чтения
@@ -53,9 +49,8 @@ void pico_set_led(bool led_on) {
 #endif
 }
 
-int main() {
-	ESP8285 ESP;   
-	//ESP.SetIrq(true);
+int main() { ///19200, 38400, 57600, 115200, 230400, 460800, 921600
+	ESP8285 ESP;      
 	// Инициализация UART1 с заданной скоростью
 	uart_init(uart1, 115200);
 	// Настройка пинов для UART1 (TX на GPIO4 и RX на GPIO5)
@@ -64,14 +59,24 @@ int main() {
 	
 	// Перенаправляем стандартный вывод на UART1
 	stdio_uart_init_full(uart1, 115200, UART1_TX_PIN, UART1_RX_PIN);
-	//stdio_uart_init_full(uart0, 115200, UART0_TX_PIN, UART0_RX_PIN);
-	char buffer[MAX_STR_LEN] = {}; // Буфер для чтения строки
-	//char buffer2[MAX_STR_LEN] = { }; // Буфер для чтения строки
 
 	int rc = pico_led_init();
 	hard_assert(rc == PICO_OK);
 //	auto ff = ESP.GetCmdNo(ESP8285::cmdGetOK);
-	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetOK));
+	ESP.SendCommand(Uart::cmdGetOK);
+	ESP.SendCommand(Uart::cmdGetRst);
+	ESP.SendCommand(Uart::cmdGetOK);
+	ESP.SendCommand(Uart::cmdGetUartDef);
+	ESP.SendCommand(Uart::cmdGetOK);
+	ESP.SendCommand(Uart::cmdSetFact);
+	ESP.SendCommand(Uart::cmdGetOK);
+	ESP.SendCommand(Uart::cmdGetRst);
+	ESP.SendCommand(Uart::cmdGetOK);
+	ESP.SendCommand(Uart::cmdGetBaud);
+	ESP.SendCommand(Uart::cmdGetOK);
+	
+	
+	/*ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetOK));
 	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetUartCur));
 	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetOK));
 	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdSetUartCur));
@@ -81,7 +86,7 @@ int main() {
 	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetOK));
 	
 	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetRst));
-	 /*
+	 
 	ESP.SendCommand(ESP.GetCmdStr(ESP8285::cmdGetRst));	   
 	ESP.SendCommand(ESP.GetCmdStr(ESP8285::cmdGetVer));	 
 	ESP.SendCommand(ESP.GetCmdStr(ESP8285::cmdGetMode));	
@@ -142,8 +147,9 @@ int main() {
 	
 	*/
 	while (true) {
-		pico_set_led(true);
+		pico_set_led(true); 
 		sleep_ms(LED_DELAY_MS);
+		printf("%d \r\n", to_ms_since_boot(get_absolute_time()));
 		pico_set_led(false);
 		sleep_ms(LED_DELAY_MS);
 		/*
