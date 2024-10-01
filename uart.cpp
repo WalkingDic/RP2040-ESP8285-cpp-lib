@@ -1,10 +1,11 @@
 
 #include "uart.hpp"
+#include "Commands.hpp"
 bool Uart::SendGetCommand(int commandNum)
 {		
-	const auto __command = static_cast<commands>(commandNum);
-	const auto __commandPrt = ATCmds::GetCmdStr(__command);
-	const auto __answerPrt =  ATCmds::GetErrStr(__command);
+	ATCmds::commands __command = static_cast<ATCmds::commands>(commandNum);
+	const char* __commandPrt = ATCmds::GetCmdStr(__command);
+	const char* __answerPrt =  ATCmds::GetErrStr(__command);
 	const uint __timeout = ATCmds::GetTimeout(__command);
 	uint __answerLen = strlen(__answerPrt);
 	const char*  __errorStr = ANSWER_ERR;

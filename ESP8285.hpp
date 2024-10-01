@@ -11,21 +11,15 @@
 #include <cstdio> 
 
 #include "uart.hpp"
-class ESP8285 :public Uart, public WFCmds {
+class ESP8285{
 private:
 	// Приватные переменные и методы (доступны только внутри класса)
  
 public:	
 	
 	// Публичные методы (доступны извне класса)
-	ESP8285(uart_inst_t* uart = uart0,  // Используем uart0 по умолчанию
-		uint uart_baud = 115200, 
-		uint uart_data_bits = 8, 
-		uint uart_stop_bits = 1, 
-		uart_parity_t uart_parity = UART_PARITY_NONE,
-		uint uart_rx_pin = 1, 
-		uint uart_tx_pin = 0) 
-		: Uart(uart, uart_baud, uart_data_bits, uart_stop_bits, uart_parity, uart_rx_pin, uart_tx_pin)
+	ESP8285(Uart uart, ATCmds atcmd)
+		 
 	{}
 	 
 	static ESP8285* instance;	 
@@ -91,13 +85,13 @@ public:
 		idx = (idx == _answerEnd) ? 0 : idx;
 		*/
 	}
-	
+	/*
 	static ESP8285& getInstance() {
 		static ESP8285 instance;
 		return instance;
 	}
 		
-	
+	*/
 	
 };
 

@@ -50,7 +50,10 @@ void pico_set_led(bool led_on) {
 }
 
 int main() { ///19200, 38400, 57600, 115200, 230400, 460800, 921600
-	ESP8285 ESP;      
+	
+	Uart uart;
+	ATCmds atcmds;
+	ESP8285 ESP(uart, atcmds);      
 	// Инициализация UART1 с заданной скоростью
 	uart_init(uart1, 115200);
 	// Настройка пинов для UART1 (TX на GPIO4 и RX на GPIO5)
@@ -62,8 +65,8 @@ int main() { ///19200, 38400, 57600, 115200, 230400, 460800, 921600
 
 	int rc = pico_led_init();
 	hard_assert(rc == PICO_OK);
-//	auto ff = ESP.GetCmdNo(ESP8285::cmdGetOK);
-	ESP.SendGetCommand(Uart::cmdGetOK);
+/*//	auto ff = ESP.GetCmdNo(ESP8285::cmdGetOK);
+	SendGetCommand(Uart::cmdGetOK);
 	ESP.SendGetCommand(Uart::cmdGetRst);
 //	ESP.SendGetCommand(Uart::cmdGetOK);
 //	ESP.SendGetCommand(Uart::cmdGetUartDef);
@@ -75,14 +78,14 @@ int main() { ///19200, 38400, 57600, 115200, 230400, 460800, 921600
 	ESP.SendGetCommand(Uart::cmdGetUartCur);
 	ESP.SendGetCommand(Uart::cmdGetOK);
 	ESP.SetBaud(115200);
-	//ESP.SetBaud(230400);
+	//ESP.SetBaud(57600);
 	ESP.SendGetCommand(Uart::cmdGetOK);
 	
 	ESP.SendGetCommand(Uart::cmdGetUartCur);
 	ESP.SendGetCommand(Uart::cmdGetOK);
 	
 	
-	/*ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetOK));
+	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetOK));
 	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetUartCur));
 	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdGetOK));
 	ESP.SendCommand(ESP.GetCmdNo(ESP8285::cmdSetUartCur));

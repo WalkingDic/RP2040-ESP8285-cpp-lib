@@ -7,12 +7,13 @@
 #include <stdio.h>
 #include <pico/time.h>
 	  
-class Uart :public ATCmds
+class Uart 
 {
 public:
 	
 	Uart(uart_inst_t* uart = uart0,  // Используем uart0 по умолчанию
-		uint uart_baud = 115200, 
+		uint uart_baud = 57600, 
+		//uint uart_baud = 115200, 
 		uint uart_data_bits = 8, 
 		uint uart_stop_bits = 1, 
 		uart_parity_t uart_parity = UART_PARITY_NONE,
@@ -20,7 +21,7 @@ public:
 		uint uart_tx_pin = 0,
 		uint flow_ctrl_ctc = 0, 
 		uint flow_ctrl_rtc = 0)
-		: ATCmds()
+		 
 	{			
 		_uart = uart;
 		_baud = uart_baud;
@@ -62,7 +63,7 @@ public:
 	}
 	void SetSelfBaud()
 	{ 
-		auto __commandPrt = ATCmds::GetCmdStr(ATCmds::cmdSetUartCur);
+		char* __commandPrt = ATCmds::GetCmdStr(ATCmds::cmdSetUartCur);
 		char result[100] = { 0,};
 		//+UART_CUR=<baudrate>,<databits>,<stopbits>,<parity>,<flow control>
 		sprintf(result, "%s%u,%u,%u,%u,%u", __commandPrt, _baud, _data_bits, _stop_bits, _parity, _flow_ctrl);

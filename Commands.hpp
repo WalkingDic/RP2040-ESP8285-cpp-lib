@@ -14,9 +14,7 @@ class ATCmds
 {
 public:
 	ATCmds() {}
-	;
 	~ATCmds() {}
-	;
 	
 	enum commands
 	{
